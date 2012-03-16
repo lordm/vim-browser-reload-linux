@@ -16,7 +16,7 @@ xdotool v2.2 http://www.semicomplete.com/projects/xdotool/
 
 For Debian and Ubuntu users, you can find the package in synaptic manager but make sure it's not the old v2.0, as the plugin depends on v2.2.
 
- ::
+::
 
   sudo apt-get install xdotool
 
