@@ -31,7 +31,6 @@ browser reload::
 
  :ChromeReload      //reload "Google Chrome"
  :FirefoxReload     //reload "Firefox"
- :SafariReload      //reload "Safari"
  :OperaReload       //reload "Opera"
  :AllBrowserReload  //reload all browser
 
@@ -39,7 +38,6 @@ start auto reload::
 
  :ChromeReloadStart  
  :FirefoxReloadStart  
- :SafariReloadStart  
  :OperaReloadStart  
  :AllBrowserReloadStart  
 
@@ -47,7 +45,6 @@ stop auto reload::
 
  :ChromeReloadStop
  :FirefoxReloadStop
- :SafariReloadStop
  :OperaReloadStop
  :AllBrowserReloadStart
 
@@ -72,18 +69,15 @@ If you want old style commad, write this setting in your .vimrc
  "reload
  command! -bar Cr silent ChromeReload
  command! -bar Fr silent FirefoxReload
- command! -bar Sr silent SafariReload
  command! -bar Or silent OperaReload
  command! -bar Ar silent AllBrowserReload
  "auto reload start
  command! -bar CrStart silent ChromeReloadStart
  command! -bar FrStart silent FirefoxReloadStart
- command! -bar SrStart silent SafariReloadStart
  command! -bar OrStart silent OperaReloadStart
  command! -bar ArStart silent AllBrowserReloadStart
  "auto reload stop
  command! -bar CrStop silent ChromeReloadStop
  command! -bar FrStop silent FirefoxReloadStop
- command! -bar SrStop silent SafariReloadStop
  command! -bar OrStop silent OperaReloadStop
  command! -bar ArStop silent AllBrowserReloadStop
