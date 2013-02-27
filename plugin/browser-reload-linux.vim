@@ -23,7 +23,8 @@ function! s:ReloadBrowser(browser)
 
     if g:returnAppFlag
         exec "silent ! xdotool windowactivate " . l:currentWindow
-    endif 
+    endif
+    redraw!
 endfunction
 
 " Google Chrome
