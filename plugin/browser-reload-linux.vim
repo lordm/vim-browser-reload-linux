@@ -1,8 +1,9 @@
 "=========================================================
 " File:        browser-reload-linux.vim
 " Author:      lordm <lordm2005[at]gmail.com>
-" Last Change: 17-Mar-2012.
-" Version:     1.0
+" Author:      Stefan Koch <programming@stefan-koch.name>
+" Last Change: 28-Feb-2013.
+" Version:     1.1
 " WebPage:     https://github.com/lordm/vim-browser-reload-linux
 " License:     BSD
 "==========================================================
@@ -10,16 +11,49 @@
 
 if !exists('g:returnAppFlag')
     let g:returnAppFlag = 1
-endif 
+endif
 
-function! s:ReloadBrowser(browser)
+if !exists('g:browserUseWindowTitle')
+    let g:browserUseWindowTitle = 0
+endif
+
+if !exists('g:browserFirefoxTitle')
+    let g:browserFirefoxTitle = "Mozilla Firefox"
+endif
+
+if !exists('g:browserChromiumTitle')
+    let g:browserChromiumTitle = "Chromium"
+endif
+
+if !exists('g:browserChromeTitle')
+    let g:browserChromeTitle = "Chrome"
+endif
+
+if !exists('g:browserOperaTitle')
+    let g:browserOperaTitle = "Opera"
+endif
+
+function! s:ReloadBrowserClass(browser, activateCommand)
+    exec "silent ! xdotool search --onlyvisible --class '" . a:browser . "' " . a:activateCommand . " key --clearmodifiers ctrl+r"
+endfunction
+
+function! s:ReloadBrowserName(browser, activateCommand)
+    exec "silent ! xdotool search --onlyvisible --name '" . a:browser . "'     " . a:activateCommand . " key --clearmodifiers ctrl+r"
+endfunction
+
+function! s:ReloadBrowser(browserClass, browserName)
     let l:currentWindow = substitute(system('xdotool getactivewindow'), "\n", "", "")
 
     let l:activateCommand = " windowactivate "
     if ( a:browser == "Chrome" || a:browser == "Chromium-browser" )
         let l:activateCommand = ""
     endif
-    exec "silent ! xdotool search --onlyvisible --class " . a:browser . l:activateCommand . " key --clearmodifiers ctrl+r"
+
+    if (g:browserUseWindowTitle == 0)
+        call s:ReloadBrowserClass(a:browserClass, l:activateCommand)
+    else
+        call s:ReloadBrowserName(a:browserName, l:activateCommand)
+    endif
 
     if g:returnAppFlag
         exec "silent ! xdotool windowactivate " . l:currentWindow
@@ -28,22 +62,22 @@ function! s:ReloadBrowser(browser)
 endfunction
 
 " Google Chrome
-command! -bar ChromeReload call s:ReloadBrowser("Chrome")
+command! -bar ChromeReload call s:ReloadBrowser("Chrome", g:browserChromeTitle)
 command! -bar ChromeReloadStart ChromeReloadStop | autocmd BufWritePost <buffer> ChromeReload
 command! -bar ChromeReloadStop autocmd! BufWritePost <buffer>
 
 " Chromium
-command! -bar ChromiumReload call s:ReloadBrowser("Chromium-browser")
+command! -bar ChromiumReload call s:ReloadBrowser("Chromium-browser", g:browserChromiumTitle)
 command! -bar ChromiumReloadStart ChromiumReloadStop | autocmd BufWritePost <buffer> ChromiumReload
 command! -bar ChromiumReloadStop autocmd! BufWritePost <buffer>
 
 " Firefox
-command! -bar FirefoxReload call s:ReloadBrowser("Firefox")
+command! -bar FirefoxReload call s:ReloadBrowser("Firefox", g:browserFirefoxTitle)
 command! -bar FirefoxReloadStart FirefoxReloadStop | autocmd BufWritePost <buffer> FirefoxReload
 command! -bar FirefoxReloadStop autocmd! BufWritePost <buffer>
 
 " Opera
-command! -bar OperaReload call s:ReloadBrowser("Opera")
+command! -bar OperaReload call s:ReloadBrowser("Opera", g:browserOperaTitle)
 command! -bar OperaReloadStart OperaReloadStop | autocmd BufWritePost <buffer> OperaReload
 command! -bar OperaReloadStop autocmd! BufWritePost <buffer>
 
