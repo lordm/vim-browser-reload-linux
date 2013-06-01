@@ -1,8 +1,8 @@
-"=========================================================
+    "=========================================================
 " File:        browser-reload-linux.vim
-" Author:      lordm <lordm2005[at]gmail.com>
-" Last Change: 17-Mar-2012.
-" Version:     1.0
+" Author:      sp4ke <chakib.benz[at]gmail.com>
+" Last Change: 1-Jun-2013.
+" Version:     1.1
 " WebPage:     https://github.com/lordm/vim-browser-reload-linux
 " License:     BSD
 "==========================================================
@@ -12,14 +12,23 @@ if !exists('g:returnAppFlag')
     let g:returnAppFlag = 1
 endif 
 
-function! s:ReloadBrowser(browser)
+function! s:ReloadBrowser(browser, ...)
     let l:currentWindow = substitute(system('xdotool getactivewindow'), "\n", "", "")
 
     let l:activateCommand = " windowactivate "
+
     if ( a:browser == "Chrome" || a:browser == "Chromium-browser" )
         let l:activateCommand = ""
     endif
-    exec "silent ! xdotool search --onlyvisible --class " . a:browser . l:activateCommand . " key --clearmodifiers ctrl+r"
+
+
+    if (a:0 == 1) "If using grep window title method
+        let l:searchArgs = "--name " . "'" . a:1 . ".*" . a:browser . "'"
+    else
+        let l:searchArgs = "--class " . a:browser
+    endif
+
+    exec "silent ! xdotool search --onlyvisible " l:searchArgs . l:activateCommand . " key --clearmodifiers ctrl+r"
 
     if g:returnAppFlag
         exec "silent ! xdotool windowactivate " . l:currentWindow
@@ -28,8 +37,8 @@ function! s:ReloadBrowser(browser)
 endfunction
 
 " Google Chrome
-command! -bar ChromeReload call s:ReloadBrowser("Chrome")
-command! -bar ChromeReloadStart ChromeReloadStop | autocmd BufWritePost <buffer> ChromeReload
+command! -nargs=? ChromeReload call s:ReloadBrowser("Chrome", <f-args>)
+command! -nargs=? -bar ChromeReloadStart ChromeReloadStop | autocmd BufWritePost <buffer> ChromeReload <args>
 command! -bar ChromeReloadStop autocmd! BufWritePost <buffer>
 
 " Chromium
