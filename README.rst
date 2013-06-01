@@ -29,7 +29,7 @@ Usage
 
 browser reload::
 
- :ChromeReload      //reload "Google Chrome"
+ :ChromeReload <regex>      //reload "Google Chrome" with optional regex for window title
  :FirefoxReload     //reload "Firefox"
  :OperaReload       //reload "Opera"
  :AllBrowserReload  //reload all browser
