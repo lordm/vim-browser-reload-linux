@@ -56,7 +56,12 @@ command! -bar OperaReload call s:ReloadBrowser("Opera")
 command! -bar OperaReloadStart OperaReloadStop | autocmd BufWritePost <buffer> OperaReload
 command! -bar OperaReloadStop autocmd! BufWritePost <buffer>
 
+" Iceweasel
+command! -bar IceweaselReload call s:ReloadBrowser("Iceweasel")
+command! -bar IceweaselReloadStart IceweaselReloadStop | autocmd BufWritePost <buffer> IceweaselReload
+command! -bar IceweaselReloadStop autocmd! BufWritePost <buffer>
+
 " All Browsers
-command! -bar AllBrowserReload silent OperaReload | FirefoxReload | ChromeReload | ChromiumReload 
+command! -bar AllBrowserReload silent OperaReload | FirefoxReload | ChromeReload | ChromiumReload | IceweaselReload
 command! -bar AllBrowserReloadStart AllBrowserReloadStop | autocmd BufWritePost <buffer> AllBrowserReload
 command! -bar AllBrowserReloadStop autocmd! BufWritePost <buffer>
