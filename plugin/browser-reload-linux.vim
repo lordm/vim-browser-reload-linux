@@ -1,8 +1,8 @@
     "=========================================================
 " File:        browser-reload-linux.vim
-" Author:      sp4ke <chakib.benz[at]gmail.com>
-" Last Change: 1-Jun-2013.
-" Version:     1.1
+" Author:      lordm <lordm2005[at]gmail.com>
+" Last Change: 20-Feb-2014.
+" Version:     1.2
 " WebPage:     https://github.com/lordm/vim-browser-reload-linux
 " License:     BSD
 "==========================================================
