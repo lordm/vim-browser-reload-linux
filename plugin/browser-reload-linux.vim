@@ -10,17 +10,12 @@
 
 if !exists('g:returnAppFlag')
     let g:returnAppFlag = 1
-endif 
+endif
 
 function! s:ReloadBrowser(browser, ...)
     let l:currentWindow = substitute(system('xdotool getactivewindow'), "\n", "", "")
 
     let l:activateCommand = " windowactivate "
-
-    if ( a:browser == "Chrome" || a:browser == "Chromium-browser" )
-        let l:activateCommand = ""
-    endif
-
 
     if (a:0 == 1) "If using grep window title method
         let l:searchArgs = "--name " . "'" . a:1 . ".*" . a:browser . "'"
