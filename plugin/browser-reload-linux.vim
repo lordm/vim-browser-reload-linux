@@ -23,7 +23,7 @@ function! s:ReloadBrowser(browser, ...)
         let l:searchArgs = "--class " . "'" . a:browser . "'"
     endif
 
-    exec "silent ! xdotool search --onlyvisible " l:searchArgs . l:activateCommand . " key --clearmodifiers ctrl+r"
+    exec "silent ! xdotool search --onlyvisible --desktop 0 " l:searchArgs . l:activateCommand . " key --clearmodifiers ctrl+r"
 
     if g:returnAppFlag
         exec "silent ! xdotool windowactivate " . l:currentWindow
