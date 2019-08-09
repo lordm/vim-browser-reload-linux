@@ -20,7 +20,7 @@ function! s:ReloadBrowser(browser, ...)
     if (a:0 == 1) "If using grep window title method
         let l:searchArgs = "--name " . "'" . a:1 . ".*" . a:browser . "'"
     else
-        let l:searchArgs = "--class " . "'" . a:browser . "'"
+        let l:searchArgs = "--name " . "'" . a:browser . "'"
     endif
 
     exec "silent ! xdotool search --onlyvisible " l:searchArgs . l:activateCommand . " key --clearmodifiers ctrl+r"
@@ -37,12 +37,12 @@ command! -nargs=? -bar ChromeReloadStart ChromeReloadStop | autocmd BufWritePost
 command! -bar ChromeReloadStop autocmd! BufWritePost <buffer>
 
 " Chromium
-command! -bar ChromiumReload call s:ReloadBrowser("Chromium-browser|Chromium")
+command! -bar ChromiumReload call s:ReloadBrowser("Chromium")
 command! -bar ChromiumReloadStart ChromiumReloadStop | autocmd BufWritePost <buffer> ChromiumReload
 command! -bar ChromiumReloadStop autocmd! BufWritePost <buffer>
 
 " Firefox
-command! -bar FirefoxReload call s:ReloadBrowser("Firefox")
+command! -bar FirefoxReload call s:ReloadBrowser("Mozilla Firefox")
 command! -bar FirefoxReloadStart FirefoxReloadStop | autocmd BufWritePost <buffer> FirefoxReload
 command! -bar FirefoxReloadStop autocmd! BufWritePost <buffer>
 
