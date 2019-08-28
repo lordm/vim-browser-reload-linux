@@ -26,7 +26,7 @@ function! s:ReloadBrowser(browser, ...)
     exec "silent ! xdotool search --onlyvisible " l:searchArgs . l:activateCommand . " key --clearmodifiers ctrl+r"
 
     if g:returnAppFlag
-        exec "silent ! xdotool windowactivate " . l:currentWindow . " key --clearmodifiers"
+        exec "silent ! xdotool windowactivate " . l:currentWindow . " key --clearmodifiers; setxkbmap"
     endif
     redraw!
 endfunction
