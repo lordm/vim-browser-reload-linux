@@ -23,6 +23,12 @@ function! s:ReloadBrowser(browser, ...)
         let l:searchArgs = "--class " . "'" . a:browser . "'"
     endif
 
+    " Delays the redraw so that a webpack builder or something can compile the assets
+    if exists('g:reloadDelay')
+        redraw!
+        exec 'sleep '.g:reloadDelay.'m'
+    endif
+    
     exec "silent ! xdotool search --onlyvisible " l:searchArgs . l:activateCommand . " key 'ctrl+r'"
 
     if g:returnAppFlag
