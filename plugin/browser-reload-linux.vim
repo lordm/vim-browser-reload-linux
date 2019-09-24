@@ -39,8 +39,13 @@ endfunction
 
 " Google Chrome
 command! -nargs=? ChromeReload call s:ReloadBrowser("Chrome", <f-args>)
-command! -nargs=? -bar ChromeReloadStart ChromeReloadStop | autocmd BufWritePost <buffer> ChromeReload <args>
-command! -bar ChromeReloadStop autocmd! BufWritePost <buffer>
+if exists('g:reloadAll')
+    command! -nargs=? -bar ChromeReloadStart ChromeReloadStop | autocmd BufWritePost *.(php|js|html|css) ChromeReload <args>
+    command! -bar ChromeReloadStop autocmd! BufWritePost *.(php|js|html|css)
+else
+    command! -nargs=? -bar ChromeReloadStart ChromeReloadStop | autocmd BufWritePost <buffer> ChromeReload <args>
+    command! -bar ChromeReloadStop autocmd! BufWritePost <buffer>
+endif
 
 " Chromium
 command! -bar ChromiumReload call s:ReloadBrowser("Chromium-browser|Chromium")
