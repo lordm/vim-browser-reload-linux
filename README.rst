@@ -8,6 +8,17 @@ Description
 Vim plugin to reload your browser. 
 This is a linux compatible version inspired by the mac version https://github.com/tell-k/vim-browsereload-mac
 
+This plugin is a form of [vim-browser-reload](https://github.com/lordm/vim-browser-reload-linux), fixes a refresh glitch with `ctrl-r` getting spammed in vim as well as the following features:
+
+A) Add a Reload Delay
+
+A new `g:reloadDelay` variable which can be set to hackily get around waiting for a build system to finish before reloading. 
+
+B) Reload on all file changes
+
+A new `g:reloadAll` variable, which if set will add the reload command to all php,js,css, and html files in your project.
+
+
 
 Required
 =====================
