@@ -23,7 +23,13 @@ function! s:ReloadBrowser(browser, ...)
         let l:searchArgs = "--name " . "'" . a:browser . "'"
     endif
 
-    exec "silent ! xdotool search --onlyvisible " l:searchArgs . l:activateCommand . " key --clearmodifiers ctrl+r"
+    " Delays the redraw so that a webpack builder or something can compile the assets
+    if exists('g:reloadDelay')
+        redraw!
+        exec 'sleep '.g:reloadDelay.'m'
+    endif
+    
+    exec "silent ! xdotool search --onlyvisible " l:searchArgs . l:activateCommand . " key 'ctrl+r'"
 
     if g:returnAppFlag
         exec "silent ! xdotool windowactivate " . l:currentWindow
@@ -33,8 +39,13 @@ endfunction
 
 " Google Chrome
 command! -nargs=? ChromeReload call s:ReloadBrowser("Chrome", <f-args>)
-command! -nargs=? -bar ChromeReloadStart ChromeReloadStop | autocmd BufWritePost <buffer> ChromeReload <args>
-command! -bar ChromeReloadStop autocmd! BufWritePost <buffer>
+if exists('g:reloadAll')
+    command! -nargs=? -bar ChromeReloadStart ChromeReloadStop | autocmd BufWritePost *.php,*.js,*.html,*.css ChromeReload <args>
+    command! -bar ChromeReloadStop autocmd! BufWritePost *.php,*.js,*.html,*.css 
+else
+    command! -nargs=? -bar ChromeReloadStart ChromeReloadStop | autocmd BufWritePost <buffer> ChromeReload <args>
+    command! -bar ChromeReloadStop autocmd! BufWritePost <buffer>
+endif
 
 " Chromium
 command! -bar ChromiumReload call s:ReloadBrowser("Chromium")
