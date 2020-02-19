@@ -7,7 +7,7 @@
 Vim plugin to reload your browser. 
 This is a linux compatible version inspired by the mac version https://github.com/tell-k/vim-browsereload-mac
 
-This plugin is a fork of [vim-browser-reload](https://github.com/lordm/vim-browser-reload-linux), fixes a refresh glitch with `ctrl-r` getting spammed in vim as well as the following features:
+Thanks to [aareman](https://github.com/aareman), the new version of the plugin fixes a refresh glitch with `ctrl-r` getting spammed in vim as well as the following features:
 
 A) Add a Reload Delay
 
@@ -21,9 +21,9 @@ A new `g:reloadAll` variable, which if set will add the reload command to all ph
 
 ## Required
 
-xdotool v2.2 http://www.semicomplete.com/projects/xdotool/
+xdotool v3.20150503.1 [https://github.com/jordansissel/xdotool](https://github.com/jordansissel/xdotool)
 
-For Debian and Ubuntu users, you can find the package in synaptic manager but make sure it's not the old v2.0, as the plugin depends on v2.2.
+For Debian and Ubuntu users, you can find it in the package manager.
 
 ```
   sudo apt-get install xdotool
