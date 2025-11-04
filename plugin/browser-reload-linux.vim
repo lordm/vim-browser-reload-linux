@@ -2,15 +2,28 @@
 " File:        browser-reload-linux.vim
 " Author:      lordm <lordm2005[at]gmail.com>
 " Last Change: 20-Feb-2014.
-" Version:     1.2
+" Version:     1.3
 " WebPage:     https://github.com/lordm/vim-browser-reload-linux
 " License:     BSD
+" Description: Browser reload plugin for Vim and Neovim on Linux
 "==========================================================
 "
 
 if !exists('g:returnAppFlag')
     let g:returnAppFlag = 1
 endif
+
+" Check if we're running in Neovim
+let s:is_nvim = has('nvim')
+
+function! s:ExecuteCommand(cmd)
+    " Use Neovim's jobstart for async execution if available
+    if s:is_nvim
+        call jobstart(a:cmd, {'detach': 1})
+    else
+        exec "silent ! " . a:cmd
+    endif
+endfunction
 
 function! s:ReloadBrowser(browser, ...)
     let l:currentWindow = substitute(system('xdotool getactivewindow'), "\n", "", "")
@@ -28,11 +41,11 @@ function! s:ReloadBrowser(browser, ...)
         redraw!
         exec 'sleep '.g:reloadDelay.'m'
     endif
-    
-    exec "silent ! xdotool search --onlyvisible " l:searchArgs . l:activateCommand . " key 'ctrl+r'"
+
+    call s:ExecuteCommand("xdotool search --onlyvisible " . l:searchArgs . l:activateCommand . " key 'ctrl+r'")
 
     if g:returnAppFlag
-        exec "silent ! xdotool windowactivate " . l:currentWindow
+        call s:ExecuteCommand("xdotool windowactivate " . l:currentWindow)
     endif
     redraw!
 endfunction
